@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OG/2rkU4vtu257u0zbPjEj/yEcJ8URK7h8C0E1JYTgrLoUt/DZu0smAan4Xb6olT5eHhqDvo2v/85XAzN15D8g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\oskar\\source\\repos\\kyberna\\Cinema\\Cinema\\Cinema.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oskar\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
