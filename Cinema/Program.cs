@@ -34,29 +34,29 @@ namespace Cinema {
                 " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ "
             };
 
+            Console.WriteLine("\n");
+
+            // logo
+            foreach (string line in logo) {
+                Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.WriteLine(line);
+            }
+
+            Console.WriteLine("\n");
+
+            // options
+            Center(Font("options // permissions"));
+            Console.WriteLine();
+
             int index = 0;
             bool run = true;
 
             while(run) {
-                Console.WriteLine("\n");
-
-                // logo
-                foreach (string line in logo) {
-                    Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-                    Console.WriteLine(line);
-                }
-
-                Console.WriteLine("\n");
-
-                // options
-                Header("<< options >>");
-                Console.WriteLine();
-
                 for (int i = 0; i < options.Count; i++) {
                     string prefix = " ";
 
                     if (i == index) {
-                        Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                        Console.BackgroundColor = ConsoleColor.DarkBlue;
                         prefix = "→";
                     }
 
@@ -65,32 +65,23 @@ namespace Cinema {
                     Console.Write(current);
                     Console.ResetColor();
 
-                    if (index == 1 && i == 1) {
+                    if (i == 1) {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write($"  {Font("admin")}");
+                        Console.Write($"  {Font("/ admin")}");
                     }
 
                     Console.WriteLine();
                     Console.ResetColor();
                 }
 
-                Console.WriteLine(new String('\n', 6));
-
-                //// credits
-                //Header("credits");
-                //Console.WriteLine();
-
-                //string credits = Font(" By Oskar Petr - T1, 2022 ");
-                //Console.SetCursorPosition((Console.WindowWidth - credits.Length) / 2, Console.CursorTop);
-
-                //Console.ForegroundColor = ConsoleColor.Blue;
-                //Console.WriteLine(credits);
-                //Console.ResetColor();
+                Console.SetCursorPosition(0, Console.CursorTop - 3);
+                Console.WriteLine(new String('\n', 3));
+                Console.SetCursorPosition(0, Console.CursorTop - 4);
 
                 // arrow switch
                 switch (Console.ReadKey().Key) {
                     case ConsoleKey.UpArrow:
-                        if(index - 1 >= 0) index--; 
+                        if(index - 1 >= 0) index--;
                         break;
                     case ConsoleKey.DownArrow:
                         if(index + 1 < options.Count) index++;
@@ -99,27 +90,79 @@ namespace Cinema {
                         switch(index) {
                             case 0:
                                 Buy();
-
-                                break;
+                                return;
                             case 1:
                                 Database();
-
-                                break;
+                                return;
                             case 2:
                                 Settings();
-
-                                break;
+                                return;
                         }
 
                         break;
                 }
-
-                Console.Clear();
             }
         }
 
         static void Buy() {
+            Console.Clear();
 
+            Console.WriteLine();
+            Center("Buy Ticket");
+            Console.WriteLine(new String('\n', 2));
+
+            List<string> films = new List<string>() {
+                "Sonic the Hedgehog",
+                "Stranger Things",
+                "Doctor Strange",
+                "The Batman",
+                "The Northman",
+                "Spider Man",
+                "Morbius",
+                "Heartstopper",
+                "The Bad Guys",
+                "Happening"
+            };
+
+            for (int x = 0; x < 2; x++) {
+                for (int i = 0; i < 2; i++) {
+                    for (var j = 0; j < 4; j++) {
+                        Console.Write(new String(' ', 8));
+                        Console.Write(new String('█', 20));
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+
+                for (int i = 0; i < 4; i++) {
+                    int film = x * 4 + i;
+
+                    Console.Write(new String(' ', (i == 0) ? 8 : 20 - films[film - 1].Length + 8));
+                    Console.Write(films[film]);
+                }
+
+                Console.WriteLine();
+
+                for (int i = 0; i < 4; i++) {
+                    int film = x * 4 + i;
+                    string hall = $"Hall {(char)(film + 65)}";
+
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(new String(' ', (i == 0) ? 8 : 20 - hall.Length + 8));
+                    Console.Write(Font(hall));
+                    Console.ResetColor();
+                }
+
+                if(x != 1) {
+                    Console.WriteLine("\n");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Center(new String('—', Console.WindowWidth - 16));
+                    Console.ResetColor();
+                    Console.WriteLine("\n");
+                }
+            }
         }
 
         static void Database() {
@@ -163,7 +206,7 @@ namespace Cinema {
                     Console.Clear();
 
                     if (again == "n") {
-                        return;
+                        Home();
                     }
                 } else {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -186,21 +229,28 @@ namespace Cinema {
         static string Font(string text) {
             text = text.ToUpper();
 
-            const string font = " !\"#$%&'()*+,-./₀₁₂₃₄₅₆₇₈₉:;<=>?@ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘqʀsᴛᴜᴠᴡxʏᴢ[\\]^-";
+            const string numbers = "₀₁₂₃₄₅₆₇₈₉";
+            const string alphabet = "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘqʀsᴛᴜᴠᴡxʏᴢ";
             string str = "";
 
             foreach (char letter in text) {
-                str += font[(int)letter - 32];
+                if((int)letter >= 48 && (int)letter <= 57) {
+                    str += numbers[(int)letter - 48];
+                } else if((int)letter >= 65 && (int)letter <= 90) {
+                    str += alphabet[(int)letter - 65];
+                } else {
+                    str += letter;
+                }
             }
 
             return str;
         }
 
-        static void Header(string text) {
-            string header = Font(text);
-            Console.SetCursorPosition((Console.WindowWidth - header.Length) / 2, Console.CursorTop);
+        static void Center(string text) {
+            Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(header);
+            Console.WriteLine(text);
+
             Console.ResetColor();
         }
     }

@@ -3,7 +3,6 @@ C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\Cinema.deps.j
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\Cinema.runtimeconfig.json
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\Cinema.runtimeconfig.dev.json
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\Cinema.dll
-C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\ref\Cinema.dll
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\bin\Debug\net5.0\Cinema.pdb
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\Cinema.csproj.AssemblyReference.cache
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\Cinema.GeneratedMSBuildEditorConfig.editorconfig
@@ -14,3 +13,4 @@ C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\Cinema.dll
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\ref\Cinema.dll
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\Cinema.pdb
 C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\Cinema.genruntimeconfig.cache
+C:\Users\oskar\source\repos\kyberna\Cinema\Cinema\obj\Debug\net5.0\refint\Cinema.dll
