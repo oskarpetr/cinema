@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cinema {
     public class Guest {
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public Ticket Ticket { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Cinema.Screens {
             Design design = new Design();
 
             // header
-            design.Header("Buy ticket");
+            design.Header("Select a film");
 
             List<string> films = new List<string>() {
                 "Sonic the Hedgehog",
@@ -71,10 +71,9 @@ namespace Cinema.Screens {
                 }
             }
 
-            bool run = true;
             int index = 0;
 
-            while (run) {
+            while (true) {
                 for (int i = 0; i < films.Count; i++) {
                     if (index == i) {
                         FilmSelection(i, ConsoleColor.DarkMagenta);
@@ -117,9 +116,8 @@ namespace Cinema.Screens {
 
                         break;
                     case ConsoleKey.Enter:
-
-
-                        break;
+                        new Form(index);
+                        return;
                 }
             }
         }

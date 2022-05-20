@@ -11,5 +11,11 @@ namespace Cinema.Screens {
 
             // get active tickets & halls
         }
+
+        public const string FILE = "halls.db";
+
+        public List<Hall> Download() {
+            return null;
+        }
     }
 }
