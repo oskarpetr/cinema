@@ -11,6 +11,8 @@ namespace Cinema.Screens {
         public Home() {
             // setting
             Design design = new Design();
+            Console.WindowHeight = 25;
+            Console.CursorVisible = false;
 
             // options
             List<string> options = new List<string>() {
@@ -31,7 +33,7 @@ namespace Cinema.Screens {
                 " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ "
             };
 
-            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine(new String('\n', 2));
 
             // draw logo
             foreach (string line in logo) {

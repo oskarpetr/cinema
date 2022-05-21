@@ -10,8 +10,7 @@ namespace Cinema {
         public string Film { get; set; }
         public string Row { get; set; }
         public int Seat { get; set; }
-        public List<Food> Food { get; set; }
-        public List<Drink> Drinks { get; set; }
+        public Refreshments Refreshments { get; set; }
 
         public decimal Price() {
             int price = 0;
@@ -36,11 +35,11 @@ namespace Cinema {
                     break;
             }   
 
-            foreach (Food food in Food) {
+            foreach (Food food in Refreshments.Food) {
                 price += (int)food.Size * base_food;
             }
 
-            foreach (Drink drink in Drinks) {
+            foreach (Drink drink in Refreshments.Drinks) {
                 price += (int)drink.Size * base_drink;
             }
 

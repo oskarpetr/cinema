@@ -11,7 +11,7 @@ namespace Cinema.Screens {
         public Buy() {
             // setting
             Design design = new Design();
-
+            
             // header
             design.Header("Select a film");
 

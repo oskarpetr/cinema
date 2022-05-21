@@ -8,6 +8,11 @@ namespace Cinema {
     public class Refreshments {
         public List<Food> Food;
         public List<Drink> Drinks;
+
+        public Refreshments() {
+            Food = new List<Food>();
+            Drinks = new List<Drink>();
+        }
     }
 
     public class Food {
@@ -22,7 +27,7 @@ namespace Cinema {
     }
 
     public enum DrinkType {
-        Cola, ColaSugarFree, Pepsi, PepsiSugarFree, Sprite
+        Coca_Cola, Pepsi, Sprite, Fanta
     }
 
     public enum PopcornType {

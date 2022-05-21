@@ -13,11 +13,13 @@ namespace Cinema.Screens {
         public Form(int film) {
             // setting
             Design design = new Design();
+            Console.CursorVisible = true;
 
             // header
             design.Header("Guest form");
 
             // full name
+
             Console.Write(new String(' ', PADDING));
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Full name: ");
@@ -28,19 +30,15 @@ namespace Cinema.Screens {
             Console.WriteLine();
 
             // guest type
-            Console.Write(new String(' ', PADDING));
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Guest type: ");
-            Console.ResetColor();
-
             GuestType guest = (GuestType)InlineMenu(typeof(GuestType), "Guest type");
 
             // separator
             Console.WriteLine();
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write(new String(' ', PADDING));
-            Console.Write(new String('—', 60));
+            Console.Write(new String('═', 60));
             Console.ResetColor();
 
             Console.WriteLine();
@@ -49,30 +47,64 @@ namespace Cinema.Screens {
             // food
             Console.Write(new String(' ', PADDING));
             Console.ForegroundColor = ConsoleColor.Blue;
-
             Console.Write("Any popcorn? y/n: ");
             Console.ResetColor();
 
             string answer = Console.ReadLine();
+
+            Refreshments refreshments = new Refreshments();
 
             if (answer == "y") {
                 int counter = 1;
 
                 while(true) {
                     Console.SetCursorPosition(PADDING, Console.CursorTop - 1);
-                    int popcorn = InlineMenu(typeof(PopcornType), $"Popcorn {counter}");
+                    int selected_popcorn = InlineMenu(typeof(PopcornType), $"Popcorn {counter}");
 
                     Console.WriteLine();
 
                     Console.Write(new String(' ', PADDING));
-                    int size = InlineMenu(typeof(Size), "Size");
+                    int selected_size = InlineMenu(typeof(Size), "Size");
 
-                    Console.Write("Add Another? y/n: ");
-                    answer = Console.ReadLine();
-
-                    if (answer != "y") break;
+                    refreshments.Food.Add(new Food {
+                        Name = (PopcornType)selected_popcorn,
+                        Size = (Size)selected_size
+                    });
 
                     counter++;
+
+                    Console.WriteLine();
+                    Console.Write(new String(' ', PADDING));
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("Add another? y/n: ");
+                    Console.ResetColor();
+
+                    answer = Console.ReadLine();
+
+                    Console.SetCursorPosition(PADDING, Console.CursorTop - 1);
+                    Console.WriteLine(new String(' ', 50));
+                    Console.SetCursorPosition(PADDING, Console.CursorTop - 3);
+                    Console.WriteLine(new String(' ', 50));
+
+                    if (answer == "y") {
+                        Console.SetCursorPosition(PADDING, Console.CursorTop - 2);
+                    } else {
+                        Console.SetCursorPosition(PADDING, Console.CursorTop - 3);
+                        Console.Write(new String(' ', 50));
+                        Console.SetCursorPosition(PADDING, Console.CursorTop);
+
+                        string title = "Popcorn: ";
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write(title);
+                        Console.ResetColor();
+
+                        foreach (Food food in refreshments.Food) {
+                            Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);
+                            Console.WriteLine($"{food.Name} — {food.Size} size");
+                        }
+
+                        break;
+                    }
                 }
             } else {
                 Console.WriteLine();
@@ -86,10 +118,61 @@ namespace Cinema.Screens {
             Console.Write("Any drink? y/n: ");
             Console.ResetColor();
 
-            if (Console.ReadLine() == "y") {
+            answer = Console.ReadLine();
 
+            if (answer == "y") {
+                int counter = 1;
+
+                while (true) {
+                    Console.SetCursorPosition(PADDING, Console.CursorTop - 1);
+                    int selected_drink = InlineMenu(typeof(DrinkType), $"Drink {counter}");
+
+                    Console.WriteLine();
+
+                    Console.Write(new String(' ', PADDING));
+                    int selected_size = InlineMenu(typeof(Size), "Size");
+
+                    refreshments.Drinks.Add(new Drink {
+                        Name = (DrinkType)selected_drink,
+                        Size = (Size)selected_size
+                    });
+
+                    counter++;
+
+                    Console.WriteLine();
+                    Console.Write(new String(' ', PADDING));
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("Add another? y/n: ");
+                    Console.ResetColor();
+
+                    answer = Console.ReadLine();
+
+                    Console.SetCursorPosition(PADDING, Console.CursorTop - 1);
+                    Console.WriteLine(new String(' ', 50));
+                    Console.SetCursorPosition(PADDING, Console.CursorTop - 3);
+                    Console.WriteLine(new String(' ', 50));
+
+                    if (answer == "y") {
+                        Console.SetCursorPosition(PADDING, Console.CursorTop - 2);
+                    } else {
+                        Console.SetCursorPosition(PADDING, Console.CursorTop - 3);
+                        Console.Write(new String(' ', 50));
+                        Console.SetCursorPosition(PADDING, Console.CursorTop);
+
+                        string title = "Drinks: ";
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write(title);
+                        Console.ResetColor();
+
+                        foreach (Drink drink in refreshments.Drinks) {
+                            Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);
+                            Console.WriteLine($"{drink.Name.ToString().Replace("_", " ")} — {drink.Size} size");
+                        }
+
+                        break;
+                    }
+                }
             } else {
-                Console.SetCursorPosition(0, Console.CursorTop - 2);
                 Console.WriteLine();
             }
         }
@@ -102,6 +185,7 @@ namespace Cinema.Screens {
 
             title += ": ";
 
+            Console.CursorVisible = false;
             Console.SetCursorPosition(PADDING, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write(title);
@@ -119,7 +203,7 @@ namespace Cinema.Screens {
                         Console.BackgroundColor = ConsoleColor.DarkBlue;
                     }
 
-                    Console.Write($" {options[i]} ");
+                    Console.Write($" {options[i].Replace("_", " ")} ");
                     Console.ResetColor();
                 }
 
@@ -144,6 +228,7 @@ namespace Cinema.Screens {
                 }
             }
 
+            Console.CursorVisible = true;
             return -1;
         }
     }

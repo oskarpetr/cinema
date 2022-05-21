@@ -10,7 +10,7 @@ namespace Cinema.Utils {
             Console.Clear();
 
             Console.WriteLine();
-            Center(header);
+            Center(Font(header));
 
             Console.WriteLine(new String('\n', 2));
         }
@@ -18,18 +18,13 @@ namespace Cinema.Utils {
         public string Font(string text) {
             text = text.ToUpper();
 
-            const string numbers = "₀₁₂₃₄₅₆₇₈₉";
             const string alphabet = "ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘqʀsᴛᴜᴠᴡxʏᴢ";
             string str = "";
 
             foreach (char letter in text) {
-                if ((int)letter >= 48 && (int)letter <= 57) {
-                    str += numbers[(int)letter - 48];
-                }
-                else if ((int)letter >= 65 && (int)letter <= 90) {
+                if ((int)letter >= 65 && (int)letter <= 90) {
                     str += alphabet[(int)letter - 65];
-                }
-                else {
+                } else {
                     str += letter;
                 }
             }
