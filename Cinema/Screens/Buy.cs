@@ -116,7 +116,7 @@ namespace Cinema.Screens {
 
                         break;
                     case ConsoleKey.Enter:
-                        new Form(index);
+                        new Form(films[index]);
                         return;
                 }
             }

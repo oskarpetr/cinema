@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,16 @@ namespace Cinema.Screens {
     public class Form {
         public const int PADDING = 5;
 
-        public Form(int film) {
+        public Form(string film) {
             // setting
             Design design = new Design();
             Console.CursorVisible = true;
+            Guest guest = new Logged().GetLogged();
 
             // header
             design.Header("Guest form");
 
             // full name
-
             Console.Write(new String(' ', PADDING));
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Full name: ");
@@ -30,13 +31,12 @@ namespace Cinema.Screens {
             Console.WriteLine();
 
             // guest type
-            GuestType guest = (GuestType)InlineMenu(typeof(GuestType), "Guest type");
+            int guestType = InlineMenu(typeof(GuestType), "Guest type");
 
             // separator
             Console.WriteLine();
 
-
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write(new String(' ', PADDING));
             Console.Write(new String('═', 60));
             Console.ResetColor();
@@ -106,8 +106,6 @@ namespace Cinema.Screens {
                         break;
                     }
                 }
-            } else {
-                Console.WriteLine();
             }
 
             Console.WriteLine();
@@ -172,8 +170,55 @@ namespace Cinema.Screens {
                         break;
                     }
                 }
-            } else {
-                Console.WriteLine();
+            }
+
+            // separator
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(new String(' ', PADDING));
+            Console.Write(new String('═', 60));
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            // price
+            Ticket ticket = new Ticket() {
+                Guest = (GuestType)guestType,
+                Film = film,
+                Row = 10,
+                Seat = 5,
+                Refreshments = refreshments
+            };
+
+            CultureInfo cs = new CultureInfo("cs-CZ");
+            string price = ticket.GetPrice().ToString("c", cs);
+
+            Console.Write(new String(' ', PADDING));
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Total: ");
+            Console.ResetColor();
+            Console.Write(price);
+
+            // update tickets
+            guest.Tickets.Add(ticket);
+            new Accounts().UpdateAccount(guest);
+
+            // return home
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(new String(' ', PADDING));
+            Console.WriteLine("Press enter to continue");
+            Console.ResetColor();
+
+            while (true) {
+                if (Console.ReadKey().Key == ConsoleKey.Enter) {
+                    new Home();
+                }
             }
         }
 
@@ -220,6 +265,7 @@ namespace Cinema.Screens {
                         break;
                     case ConsoleKey.Enter:
                         Console.SetCursorPosition(0, Console.CursorTop + 1);
+                        Console.CursorVisible = true;
                         return index;
                     default:
                         Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);

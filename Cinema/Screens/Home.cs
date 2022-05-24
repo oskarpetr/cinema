@@ -11,15 +11,24 @@ namespace Cinema.Screens {
         public Home() {
             // setting
             Design design = new Design();
-            Console.WindowHeight = 25;
-            Console.CursorVisible = false;
+            Files files = new Files();
+
+            Guest guest = new Logged().GetLogged();
+            bool logged = guest != null;
 
             // options
-            List<string> options = new List<string>() {
-                design.Font("buy ticket"),
-                design.Font("database"),
-                design.Font("settings")
-            };
+            List<string> options = new List<string>();
+            
+            if(logged) {
+                options.Add(design.Font("my tickets"));
+                options.Add(design.Font("database"));
+                options.Add(design.Font("settings"));
+                options.Add(design.Font("log out"));
+            } else {
+                options.Add(design.Font("login"));
+                options.Add(design.Font("database"));
+                options.Add(design.Font("settings"));
+            }
 
             // logo
             List<string> logo = new List<string>() {
@@ -33,6 +42,7 @@ namespace Cinema.Screens {
                 " ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ "
             };
 
+            Console.Clear();
             Console.WriteLine(new String('\n', 2));
 
             // draw logo
@@ -73,9 +83,15 @@ namespace Cinema.Screens {
                     Console.ResetColor();
                 }
 
-                Console.SetCursorPosition(0, Console.CursorTop - 3);
-                Console.WriteLine(new String('\n', 3));
-                Console.SetCursorPosition(0, Console.CursorTop - 4);
+                if(logged) {
+                    Console.SetCursorPosition(0, Console.CursorTop - 4);
+                    Console.WriteLine(new String('\n', 4));
+                    Console.SetCursorPosition(0, Console.CursorTop - 5);
+                } else {
+                    Console.SetCursorPosition(0, Console.CursorTop - 3);
+                    Console.WriteLine(new String('\n', 3));
+                    Console.SetCursorPosition(0, Console.CursorTop - 4);
+                }
 
                 // arrow switch
                 switch (Console.ReadKey().Key) {
@@ -86,16 +102,34 @@ namespace Cinema.Screens {
                         if (index + 1 < options.Count) index++;
                         break;
                     case ConsoleKey.Enter:
-                        switch (index) {
-                            case 0:
-                                new Buy();
-                                return;
-                            case 1:
-                                new Database();
-                                return;
-                            case 2:
-                                new Settings();
-                                return;
+                        if(logged) {
+                            switch (index) {
+                                case 0:
+                                    new MyTickets();
+                                    return;
+                                case 1:
+                                    new Database();
+                                    return;
+                                case 2:
+                                    new Settings();
+                                    return;
+                                case 3:
+                                    new Logged().SaveLogged(null);
+                                    new Home();
+                                    return;
+                            }
+                        } else {
+                            switch (index) {
+                                case 0:
+                                    new Login();
+                                    return;
+                                case 1:
+                                    new Database();
+                                    return;
+                                case 2:
+                                    new Settings();
+                                    return;
+                            }
                         }
 
                         break;

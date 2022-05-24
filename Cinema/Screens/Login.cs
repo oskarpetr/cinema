@@ -8,60 +8,93 @@ using Cinema.Utils;
 
 namespace Cinema.Screens {
     public class Login {
+        public const int PADDING = 5;
+
         public Login() {
             // setting
             Design design = new Design();
+            Console.CursorVisible = true;
 
             // header
             design.Header("Login");
 
-            do {
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("Enter your username");
+            while(true) {
+                // full name
+                Console.Write(new String(' ', PADDING));
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Full name: ");
                 Console.ResetColor();
 
-                string username = Console.ReadLine();
+                string name = Console.ReadLine();
 
                 Console.WriteLine();
 
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("Enter your password");
+                // password
+                Console.Write(new String(' ', PADDING));
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Password: ");
                 Console.ResetColor();
 
                 string password = Console.ReadLine();
-                Console.WriteLine();
 
-                if (username != "admin" || password != "admin") {
+                // accounts
+                List<Guest> accounts = new Accounts().GetAccounts();
+
+                Guest user = accounts.FirstOrDefault(account =>
+                    account.FullName == name &&
+                    account.Password == password);
+
+                if (user == null) {
+                    Console.WriteLine();
+
+                    Console.Write(new String(' ', PADDING));
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Wrong username or password");
+                    Console.WriteLine("Invalid credentials");
 
+                    Console.Write(new String(' ', PADDING));
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("Enter again? y/n");
+                    Console.Write("Press y/n to enter again: ");
                     Console.ResetColor();
+                    
+                    string answer = Console.ReadLine();
 
-                    string again = Console.ReadLine();
-
-                    Console.ResetColor();
-                    Console.Clear();
-
-                    if (again == "n") {
+                    if(answer == "n") {
                         new Home();
+                    } else {
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        Console.WriteLine(new String(' ', 50));
+                        Console.SetCursorPosition(0, Console.CursorTop - 2);
+                        Console.WriteLine(new String(' ', 50));
+                        Console.SetCursorPosition(0, Console.CursorTop - 3);
+                        Console.WriteLine(new String(' ', 50));
+                        Console.SetCursorPosition(0, Console.CursorTop - 3);
+                        Console.WriteLine(new String(' ', 50));
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
                     }
-                }
-                else {
+                } else {
+                    Console.WriteLine();
+
+                    Console.Write(new String(' ', PADDING));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Logged as admin");
+                    Console.WriteLine($"Logged as {user.FullName}");
 
+                    // set logged
+                    new Logged().SaveLogged(user);
+
+                    // return home
+                    Console.CursorVisible = false;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(new String(' ', PADDING));
                     Console.WriteLine("Press enter to continue");
+                    Console.ResetColor();
 
-                    if (Console.ReadKey().Key == ConsoleKey.Enter) {
-                        Console.ResetColor();
-                        Console.Clear();
-                        return;
+                    while (true) {
+                        if (Console.ReadKey().Key == ConsoleKey.Enter) {
+                            new Home();
+                        }
                     }
                 }
-            } while (true);
+            }
         }
     }
 }
