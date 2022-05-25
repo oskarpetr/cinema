@@ -16,7 +16,7 @@ namespace Cinema {
             //Accounts accounts = new Accounts();
             //accounts.AddAccount(new Guest() {
             //    FullName = "Oskar Petr",
-            //    Password = "Haha"
+            //   Password = "Haha"
             //});
 
             // home screen

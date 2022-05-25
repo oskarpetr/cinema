@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Cinema.Utils;
+using Cinema.Cinema;
 
 namespace Cinema.Screens {
     public class Form {
@@ -14,21 +15,19 @@ namespace Cinema.Screens {
         public Form(string film) {
             // setting
             Design design = new Design();
-            Console.CursorVisible = true;
             Guest guest = new Logged().GetLogged();
 
             // header
             design.Header("Guest form");
 
-            // full name
-            Console.Write(new String(' ', PADDING));
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Full name: ");
-            Console.ResetColor();
+            // date
+            string[] dates = new string[] {
+                $"Today - {DateTime.Today.ToString("d. M.")}",
+                $"Tomorrow - {DateTime.Today.AddDays(10).ToString("d. M.")}",
+                $"Overmorrow - {DateTime.Today.AddDays(2).ToString("d. M.")}"
+            };
 
-            string name = Console.ReadLine();
-
-            Console.WriteLine();
+            //int date = InlineMenu(typeof(dates), "Date");
 
             // guest type
             int guestType = InlineMenu(typeof(GuestType), "Guest type");
@@ -254,9 +253,9 @@ namespace Cinema.Screens {
 
                 switch (Console.ReadKey().Key) {
                     case ConsoleKey.LeftArrow:
-                        if (index - 1 >= 0) index--;
                         Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);
-
+                        if (index - 1 >= 0) index--;
+                        
                         break;
                     case ConsoleKey.RightArrow:
                         Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);

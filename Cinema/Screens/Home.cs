@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Cinema.Utils;
+using Cinema.Cinema;
 
 namespace Cinema.Screens {
     public class Home {
@@ -25,6 +26,7 @@ namespace Cinema.Screens {
                 options.Add(design.Font("settings"));
                 options.Add(design.Font("log out"));
             } else {
+                options.Add(design.Font("register"));
                 options.Add(design.Font("login"));
                 options.Add(design.Font("database"));
                 options.Add(design.Font("settings"));
@@ -74,7 +76,7 @@ namespace Cinema.Screens {
                     Console.Write(current);
                     Console.ResetColor();
 
-                    if (i == 1) {
+                    if(logged && i == 1 || !logged && i == 2) {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.Write($"  {design.Font("admin")}");
                     }
@@ -83,15 +85,9 @@ namespace Cinema.Screens {
                     Console.ResetColor();
                 }
 
-                if(logged) {
-                    Console.SetCursorPosition(0, Console.CursorTop - 4);
-                    Console.WriteLine(new String('\n', 4));
-                    Console.SetCursorPosition(0, Console.CursorTop - 5);
-                } else {
-                    Console.SetCursorPosition(0, Console.CursorTop - 3);
-                    Console.WriteLine(new String('\n', 3));
-                    Console.SetCursorPosition(0, Console.CursorTop - 4);
-                }
+                Console.SetCursorPosition(0, Console.CursorTop - 4);
+                Console.WriteLine(new String('\n', 4));
+                Console.SetCursorPosition(0, Console.CursorTop - 5);                
 
                 // arrow switch
                 switch (Console.ReadKey().Key) {
@@ -121,12 +117,15 @@ namespace Cinema.Screens {
                         } else {
                             switch (index) {
                                 case 0:
-                                    new Login();
+                                    new Register();
                                     return;
                                 case 1:
-                                    new Database();
+                                    new Login();
                                     return;
                                 case 2:
+                                    new Database();
+                                    return;
+                                case 3:
                                     new Settings();
                                     return;
                             }

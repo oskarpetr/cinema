@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Cinema.Utils;
+using Cinema.Cinema;
 
 namespace Cinema.Screens {
     public class Login {
