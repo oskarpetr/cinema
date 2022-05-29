@@ -8,13 +8,8 @@ namespace Cinema.Cinema {
 
     [Serializable]
     public class Refreshments {
-        public List<Food> Food;
-        public List<Drink> Drinks;
-
-        public Refreshments() {
-            Food = new List<Food>();
-            Drinks = new List<Drink>();
-        }
+        public List<Food> Food = new List<Food>();
+        public List<Drink> Drinks = new List<Drink>();
     }
 
     [Serializable]

@@ -53,4 +53,8 @@ namespace Cinema.Cinema {
     public enum GuestType {
         Child, Student, Adult, Senior
     }
+
+    public enum Dates {
+        Today, Tomorrow, Overmorrow
+    }
 }

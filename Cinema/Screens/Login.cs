@@ -61,6 +61,7 @@ namespace Cinema.Screens {
 
                     if(answer == "n") {
                         new Home();
+                        return;
                     } else {
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         Console.WriteLine(new String(' ', 50));

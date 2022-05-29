@@ -21,13 +21,9 @@ namespace Cinema.Screens {
             design.Header("Guest form");
 
             // date
-            string[] dates = new string[] {
-                $"Today - {DateTime.Today.ToString("d. M.")}",
-                $"Tomorrow - {DateTime.Today.AddDays(10).ToString("d. M.")}",
-                $"Overmorrow - {DateTime.Today.AddDays(2).ToString("d. M.")}"
-            };
+            int date = InlineMenu(typeof(Dates), "Date");
 
-            //int date = InlineMenu(typeof(dates), "Date");
+            Console.WriteLine();
 
             // guest type
             int guestType = InlineMenu(typeof(GuestType), "Guest type");
@@ -184,6 +180,7 @@ namespace Cinema.Screens {
 
             // price
             Ticket ticket = new Ticket() {
+                Date = DateTime.Now.AddDays(date),
                 Guest = (GuestType)guestType,
                 Film = film,
                 Row = 10,
@@ -266,6 +263,9 @@ namespace Cinema.Screens {
                         Console.SetCursorPosition(0, Console.CursorTop + 1);
                         Console.CursorVisible = true;
                         return index;
+                    case ConsoleKey.Escape:
+                        new Home();
+                        return -1;
                     default:
                         Console.SetCursorPosition(title.Length + PADDING, Console.CursorTop);
 

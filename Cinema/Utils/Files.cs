@@ -27,5 +27,17 @@ namespace Cinema.Utils {
                 format.Serialize(stream, data);
             }
         }
+
+        public List<string> GetTextFile(string path) {
+            List<string> list = new List<string>();
+
+            string[] data = File.ReadAllLines(path);
+
+            foreach (string line in data) {
+                list.Add(line);
+            }
+
+            return list;
+        }
     }
 }

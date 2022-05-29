@@ -46,9 +46,11 @@ namespace Cinema.Screens {
                         Console.WriteLine($" {film}{new String(' ', length - film.Length - 2)} ");
                         Console.SetCursorPosition(5, Console.CursorTop);
 
+                        string date = guest.Tickets[i - 1].Date.ToString("d/M/yy");
+
                         CultureInfo cs = new CultureInfo("cs-CZ");
                         string price = guest.Tickets[i - 1].GetPrice().ToString("c", cs);
-                        Console.WriteLine($" {price}{new String(' ', length - price.Length - 2)} ");
+                        Console.WriteLine($" {date} — {price}{new String(' ', length - price.Length - date.Length - 5)} ");
                     }
 
                     Console.WriteLine();

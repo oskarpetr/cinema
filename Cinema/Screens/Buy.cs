@@ -11,22 +11,12 @@ namespace Cinema.Screens {
         public Buy() {
             // setting
             Design design = new Design();
+            Files files = new Files();
             
             // header
             design.Header("Select a film");
 
-            List<string> films = new List<string>() {
-                "Sonic the Hedgehog",
-                "Stranger Things",
-                "Doctor Strange",
-                "The Batman",
-                "The Northman",
-                "Spider Man",
-                "Morbius",
-                "Heartstopper",
-                "The Bad Guys",
-                "Happening"
-            };
+            List<string> films = files.GetTextFile("films.db");
 
             for (int section = 0; section < 2; section++) {
                 // draw rectangles
@@ -117,6 +107,9 @@ namespace Cinema.Screens {
                         break;
                     case ConsoleKey.Enter:
                         new Form(films[index]);
+                        return;
+                    case ConsoleKey.Escape:
+                        new Home();
                         return;
                 }
             }
